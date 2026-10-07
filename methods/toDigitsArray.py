@@ -1,10 +1,10 @@
-def NumToTwo():
-    num = int(input("Введите число:"))
-    if num == 0:
-        return 0
-    s = []
-    while num > 0:
-        s.append(num % 2)
-        num //= 2
-
-    return s
+def toDigitsArray(n):
+    n = abs(int(n))
+    if n == 0:
+        return [0]
+    digits = []
+    while n > 0:
+        digits.append(n % 2)
+        n //= 2
+    digits.reverse()
+    return digits
