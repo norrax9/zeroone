@@ -7,3 +7,4 @@ addTwosComplement - сложение в дополнительном коде
 fromTwosComplement - перевод из дополнительного кода в прямой
 
 arrayToInt - перевод из двоичной системы счисления в десятичную
+азамат-m.azamatn8@gmail.com
