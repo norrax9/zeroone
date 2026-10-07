@@ -8,3 +8,4 @@ fromTwosComplement - перевод из дополнительного кода
 
 arrayToInt - перевод из двоичной системы счисления в десятичную
 азамат-m.azamatn8@gmail.com
+почта сергея sergei.lezhnin.work@gnail.com
