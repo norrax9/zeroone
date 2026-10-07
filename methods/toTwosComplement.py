@@ -1,5 +1,3 @@
-from toDigitsArray import num_to_two
-
 def to_twos_complement():
     bits = num_to_two()
     
