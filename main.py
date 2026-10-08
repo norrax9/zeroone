@@ -1,24 +1,34 @@
 from methods import (
-    toDigitsArray,
     toTwosComplement,
     addTwosComplement,
     fromTwosComplement,
     arrayToInt,
 )
 
-if __name__ == "__main__":
-    print("toDigitsArray(10):", toDigitsArray(10))
+BITS = 16
 
-    a = toTwosComplement(5)
-    b = toTwosComplement(-3)
-    print("5 в доп. коде:", a)
-    print("-3 в доп. коде:", b)
 
-    s = addTwosComplement(a, b)
-    print("5 + (-3) в доп. коде:", s)
-    print("в прямом коде:", fromTwosComplement(s))
-    print("arrayToInt(s):", arrayToInt(s))
+def toStr(arr):
+    return ''.join(map(str, arr))
 
-    neg = toTwosComplement(-5)
-    print("-5 в доп. коде:", neg)
-    print("-5 в прямом коде:", fromTwosComplement(neg))
+
+if __name__ == '__main__':
+    x = int(input('Введите первое число: '))
+    y = int(input('Введите второе число: '))
+
+    a = toTwosComplement(x, BITS)
+    b = toTwosComplement(y, BITS)
+    print(f'{x} в доп. коде: {toStr(a)}')
+    print(f'{y} в доп. коде: {toStr(b)}')
+
+    try:
+        s = addTwosComplement(a, b)
+    except OverflowError:
+        print('Переполнение: сумма не помещается в', BITS, 'бит')
+    else:
+        direct = fromTwosComplement(s)
+        sign = -1 if direct[0] == 1 else 1
+        value = sign * arrayToInt(direct[1:])
+        print(f'Сумма в доп. коде: {toStr(s)}')
+        print(f'Сумма в прямом коде: {toStr(direct)}')
+        print(f'Сумма в десятичной: {value}')
