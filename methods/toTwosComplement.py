@@ -1,50 +1,31 @@
+from .toDigitsArray import toDigitsArray
 
 
-from toDigitsArray import num_to_two
+def toTwosComplement(n, bits=8):
+    """Перевод целого числа в дополнительный код длиной bits разрядов.
 
+    Возвращает массив битов (старший разряд - знаковый).
+    Примеры:
+        toTwosComplement(5, 8)  -> [0, 0, 0, 0, 0, 1, 0, 1]
+        toTwosComplement(-5, 8) -> [1, 1, 1, 1, 1, 0, 1, 1]
+    """
+    n = int(n)
+    low = -(2 ** (bits - 1))
+    high = 2 ** (bits - 1) - 1
+    if n < low or n > high:
+        raise ValueError(f"Число {n} не помещается в {bits} бит ({low}..{high})")
 
-def to_twos_complement():
-    bits = num_to_two()
-    
-    inverted = [1 if bit == 0 else 0 for bit in bits]
-    
+    if n >= 0:
+        digits = toDigitsArray(n)
+        return [0] * (bits - len(digits)) + digits
+
+    # Отрицательное: инвертируем модуль и прибавляем 1
+    digits = toDigitsArray(-n)
+    result = [0] * (bits - len(digits)) + digits
+    result = [1 - d for d in result]
     carry = 1
-    for i in range(len(inverted) - 1, -1, -1):
-        total = inverted[i] + carry
-        if total == 2:
-            inverted[i] = 0
-            carry = 1
-        else:
-            inverted[i] = total
-            carry = 0
-            break
-            
-    return inverted
-
-if __name__ == "__main__":
-    print("16-битный дополнительный код:", to_twos_complement())
-def binary_to_decimal(binary_str):
-    decimal_val = 0
-    for index, digit in enumerate(reversed(binary_str)):
-        if digit == "1":
-            decimal_val += 2 ** index
-    return decimal_val
-
-
-
-
-
-def fromTwosComplement(arr):
-    arr = list(arr)
-    if arr[0] == 0:
-        return arr
-
-    magnitude = [1 - d for d in arr[1:]]
-    carry = 1
-    for i in range(len(magnitude) - 1, -1, -1):
-        total = magnitude[i] + carry
-        magnitude[i] = total % 2
+    for i in range(bits - 1, -1, -1):
+        total = result[i] + carry
+        result[i] = total % 2
         carry = total // 2
-    if carry:
-        raise OverflowError("Наименьшее число нельзя представить в прямом коде")
-    return [1] + magnitude
+    return result

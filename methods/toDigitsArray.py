@@ -1,23 +1,9 @@
-
-def num_to_two():
-    num = int(input("Введите число: "))
-    s = ""
-    temp = abs(num)
-    
-    while temp > 0:
-        s = str(temp % 2) + s
-        temp //= 2
-        
-    bits = [int(char) for char in s]
-    
-    if len(bits) < 16:
-        bits = [0] * (16 - len(bits)) + bits
-    else:
-        bits = bits[-16:] 
-        
-    return bits
-
 def toDigitsArray(n):
+    """Перевод целого числа из десятичной системы счисления в двоичную.
+
+    Возвращает массив цифр (старший разряд первым) для модуля числа.
+    Пример: toDigitsArray(10) -> [1, 0, 1, 0]
+    """
     n = abs(int(n))
     if n == 0:
         return [0]
@@ -27,4 +13,3 @@ def toDigitsArray(n):
         n //= 2
     digits.reverse()
     return digits
-
